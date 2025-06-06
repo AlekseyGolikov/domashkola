@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Aleks Golikov">
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='icon/favicon.svg') }}">
+    
+
+    <!--STYLES-->
+    {{ bootstrap.load_css() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+    <!--TITLE-->
+    <title>Домашняя школа - банк знаний</title>
+  </head>
+  <body>
+    {% block menu %}
+      {% include 'menu.html' %}
+    {% endblock menu %}
+
+
+    <!--CONTENT-->
+    <div class="content">
+
+      {% block content %}
+
+
+
+      {% endblock content%}
+
+    </div>
+    
+
+
+    <!--FOOTER-->    
+    <footer class="footer">
+      
+      <div class="container">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+          <p class="col-md-4 mb-0 text-body-secondary">&copy; 2024 Домашняя школа</p>
+      
+          <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+            <img src="../static/img/favicon/favicon.ico" width="40" height="32">
+          </a>
+      
+          <ul class="nav col-md-4 justify-content-end">
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Главная</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
+          </ul>
+        </footer>
+      </div>
+
+    </footer>
+    
+    <!--JAVASCRIPT-->
+    {{ bootstrap.load_js() }}
+  </body>
+</html>
