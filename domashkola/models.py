@@ -18,22 +18,22 @@ class Users(db.Model):
 class Categories(db.Model):
   id: so.Mapped[int] = so.mapped_column(primary_key=True)
   category_name: so.Mapped[str] = so.mapped_column(sa.String(60), index=True, unique=True)
-  posts: so.WriteOnlyMapped['Posts'] = so.relationship(back_populates='author')
+  posts: so.WriteOnlyMapped['Posts'] = so.relationship(back_populates='category')
   
   def __repr__(self):
-    return '<Category {}>'.format(self.category_name)
+    return '<Category {}. {}>\n'.format(self.id, self.category_name)
   
 
 class Posts(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
-    link: so.Mapped[str] = so.mapped_column(sa.String(60))
+    link: so.Mapped[str] = so.mapped_column(sa.String(60), nullable=True)
     body: so.Mapped[str] = so.mapped_column(sa.Text)
-    attached_files: so.Mapped[str] = so.mapped_column(sa.String(256))
+    attached_files: so.Mapped[str] = so.mapped_column(sa.String(256), nullable=True)
     timestamp: so.Mapped[datetime] = so.mapped_column(
-        index=True, default=lambda: datetime.now(timezone.utc))
-    category_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey(Users.id), index=True)
+        index=True, default=lambda: datetime.now())
+    category_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey(Categories.id), index=True)
 
-    author: so.Mapped[Users] = so.relationship(back_populates='posts')
+    category: so.Mapped[Categories] = so.relationship(back_populates='posts')
 
     def __repr__(self):
-        return '<Post {}>'.format(self.body)
+        return '<Post {}. {} от {}>\n'.format(self.id, self.body, self.timestamp)
