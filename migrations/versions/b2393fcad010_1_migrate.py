@@ -1,8 +1,8 @@
-"""create db
+"""1 migrate
 
-Revision ID: 0409759c9b5e
+Revision ID: b2393fcad010
 Revises: 
-Create Date: 2025-06-06 18:35:48.658156
+Create Date: 2025-06-08 00:30:12.823908
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '0409759c9b5e'
+revision = 'b2393fcad010'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -39,12 +39,12 @@ def upgrade():
 
     op.create_table('posts',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('link', sa.String(length=60), nullable=False),
+    sa.Column('link', sa.String(length=60), nullable=True),
     sa.Column('body', sa.Text(), nullable=False),
-    sa.Column('attached_files', sa.String(length=256), nullable=False),
+    sa.Column('attached_files', sa.String(length=256), nullable=True),
     sa.Column('timestamp', sa.DateTime(), nullable=False),
     sa.Column('category_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['category_id'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['category_id'], ['categories.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     with op.batch_alter_table('posts', schema=None) as batch_op:
