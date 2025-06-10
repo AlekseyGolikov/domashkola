@@ -1,3 +1,4 @@
 .env
 __pycache__/
 domashkola.db
+garbage/

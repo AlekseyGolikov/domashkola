@@ -1,9 +1,9 @@
 from domashkola import create_app
 
 
-app = create_app()
+application = create_app()
 
 
 if __name__ == '__main__':
-    with app.app_context():
-        app.run(debug=True, port=5000)
+    with application.app_context():
+        application.run(debug=True)

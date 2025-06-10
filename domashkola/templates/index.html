@@ -2,6 +2,30 @@
 
 {% block content %}
 
+<div class="container">
 
+    {% for post in posts %}
+
+    <div class="card my-2">
+        <h5 class="card-header">
+            {% for category in categories %}
+
+                {% if category.id == post.category_id %}
+                    {{ category.category_name.capitalize() }}
+                {% endif%}
+
+            {% endfor %}
+        </h5>
+        <div class="card-body">
+          <h5 class="card-title">{{ post.body|truncate(length=50, killwords=True) }}</h5>
+          <p class="card-text">{{ post.body }}</p>
+          <a href="{{ post.link }}" alt="{{ post.link }}" class="btn btn-primary">Перейти по ссылке</a>
+        </div>
+      </div>
+
+    {% endfor%}
+
+</div>
+    
 
 {% endblock content %}

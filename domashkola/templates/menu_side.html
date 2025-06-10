@@ -1,0 +1,39 @@
+{% block menu_side %}
+  
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasMenuLabel">Меню</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
+    </div>
+    <div class="offcanvas-body">
+      <ul class="nav flex-column">
+
+        <!-- ссылка на вход в админку -->
+        {% if current_user.username == 'admin' %}  
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{ url_for('main.admin') }}">Панель администратора</a>
+        </li>
+        {% endif%}
+
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{ url_for('main.index') }}">Главная</a>
+        </li>
+        <li class="nav-link">
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Искать</button>
+              </form>
+        </li>
+        {% for category in categories %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('posts.view_posts_by_category', id=category.id) }}">{{ category.category_name.capitalize() }}</a>
+        </li>
+        {% endfor %}
+        <!--<li class="nav-item">
+          <a class="nav-link" href="#">Контакты</a>
+        </li>-->
+      </ul>
+    </div>
+  </div>
+
+{% endblock menu_side %}

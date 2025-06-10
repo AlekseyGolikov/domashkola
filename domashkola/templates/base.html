@@ -5,22 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="Aleks Golikov">
-    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='icon/favicon.svg') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='icons/favicon.svg') }}">
     
 
     <!--STYLES-->
     {{ bootstrap.load_css() }}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
     <!--TITLE-->
-    <title>Домашняя школа - банк знаний</title>
+    <title>
+      {% block title %}
+        {{ title }}
+      {% endblock title %}
+    </title>
   </head>
   <body>
+    <!--Горизонтальное меню-->
     {% block menu %}
       {% include 'menu.html' %}
     {% endblock menu %}
 
+    <!--Выплывающее боковое меню-->
+    {% block menu_side %}
+      {% include 'menu_side.html' %}
+    {% endblock menu_side %}
 
-    <!--CONTENT-->
+    <!--Контент-->
     <div class="content">
 
       {% block content %}
@@ -33,24 +42,12 @@
     
 
 
-    <!--FOOTER-->    
+    <!--Подвал-->    
     <footer class="footer">
       
       <div class="container">
-        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-          <p class="col-md-4 mb-0 text-body-secondary">&copy; 2024 Домашняя школа</p>
-      
-          <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-            <img src="../static/img/favicon/favicon.ico" width="40" height="32">
-          </a>
-      
-          <ul class="nav col-md-4 justify-content-end">
-            <li class="nav-item"><a href="{{ url_for('main.index') }}" class="nav-link px-2 text-body-secondary">Главная</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
-          </ul>
+        <footer class="d-flex flex-wrap justify-content-center align-items-center py-3 my-4 border-top">
+          <p class="col-md-4 mb-0 text-body-secondary text-center">&copy; 2025 Домашняя школа</p>
         </footer>
       </div>
 
