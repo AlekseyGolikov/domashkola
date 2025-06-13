@@ -2,22 +2,22 @@
 <div class="container">
   <header class="d-flex flex-wrap align-items-center justify-content-center py-1 mb-4 border-bottom">
       <div class="row col-12 pe-0">
-        <div class="col-5 align-self-center border">
+        <div class="col-5 align-self-center">
           <!-- <a class="btn btn-outline-primary me-2 btn-sm" href="{{ url_for('users.login') }}" role="button">Логин</a> -->
           
           <a href="#" class="btn btn-outline-primary px-2 btn-sm align-middle" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu" role="button">
-            <img src="../static/icons/menu-button-wide.svg" alt="Меню" width="20" height="20">
-            Меню
+            <img src="{{ url_for('static', filename='icons/menu-button-wide.svg') }}" alt="Меню" width="20" height="20">
+            Меню  
 
           </a>
         </div>
         <div class="col-2 text-center ">
             <a class="navbar-brand " href="{{ url_for('main.index') }}">
-                <img src="../static/img/favicon.ico" width="50" height="50" class="" alt="" loading="lazy">
+                <img src="{{ url_for('static', filename='img/favicon.ico') }}" width="50" height="50" class="" alt="" loading="lazy">
             </a>  
   
         </div>
-        <div class="col-5 text-end align-self-center border">
+        <div class="col-5 text-end align-self-center">
             
           {% if current_user.is_anonymous %}
             <a class="btn btn-outline-primary me-2 btn-sm" href="{{ url_for('users.login') }}" role="button">Логин</a>

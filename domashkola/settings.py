@@ -7,10 +7,11 @@ load_dotenv(os.path.join(basedir, '.env'))
 
 FLASK_ENV = os.environ['FLASK_ENV']
 FLASK_APP = os.environ['FLASK_APP']
-DEBUG = os.environ['DEBUG']
+FLASK_DEBUG = os.environ['FLASK_DEBUG']
 SECRET_KEY = os.environ['SECRET_KEY']
 
-BOOTSTRAP_BOOTSWATCH_THEME = 'United'
+BOOTSTRAP_BOOTSWATCH_THEME = 'United'   # Тема Bootstrap
+POSTS_PER_PAGE = 3                      # Количество постов на странице
 
 DB_USERNAME = os.environ['DB_USERNAME']
 DB_PASSWORD = os.environ['DB_PASSWORD']

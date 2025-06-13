@@ -55,5 +55,20 @@
     
     <!--JAVASCRIPT-->
     {{ bootstrap.load_js() }}
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <script type="text/javascript">
+      //вывести значение текущей открытой в браузере страницы в поле ввода пагинации 
+ 
+      document.getElementById("input_page").addEventListener("blur", () => {
+          document.getElementById("input_page").placeholder = myFunc( {{ current_page }} );
+      });
+      document.getElementById("input_page").addEventListener("focus", () => {
+          document.getElementById("input_page").placeholder = '';
+      });
+      document.addEventListener("DOMContentLoaded", () => {
+          document.getElementById("input_page").value = '';
+          document.getElementById("input_page").placeholder = myFunc( {{ current_page }} );
+      });
+   </script>
   </body>
 </html>

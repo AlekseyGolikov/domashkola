@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import IntegerField, StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired
 
 
@@ -8,3 +8,8 @@ class LoginForm(FlaskForm):
     password = PasswordField('Пароль', validators=[DataRequired()])
     remember_me = BooleanField('Запомнить меня')
     submit = SubmitField('Войти')
+
+
+class PaginationPageForm(FlaskForm):
+    input_page = IntegerField('input_page')
+    submit = SubmitField('submit_btn')

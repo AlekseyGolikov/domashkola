@@ -2,16 +2,15 @@
 
 {% block content %}
 
-
 <div class="container">
+
+    
 
     {% for post in posts %}
 
     <div class="card my-2">
         <h5 class="card-header">
- 
-            {{ post.category_name }}
-
+            {{ post.category_name.capitalize() }}
         </h5>
         <div class="card-body">
             <h5 class="card-title">{{ post.body | truncate(length=50, killwords=True) }}</h5>
@@ -23,12 +22,13 @@
         </div>
       </div>
 
-    {% endfor%}  
+    {% endfor%}
 
     {% block pagination %}
       {% include 'pagination.html' %}
     {% endblock pagination %}
 
-</div> 
+</div>
+    
 
 {% endblock content %}
