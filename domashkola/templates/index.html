@@ -16,7 +16,9 @@
         <div class="card-body">
             <h5 class="card-title">{{ post.body | truncate(length=50, killwords=True) }}</h5>
             <p class="card-text">{{ post.body | truncate(length=350, killwords=True) }}</p>
-            <a href="{{ url_for('posts.view_post', post_id=post.id) }}" alt="{{ url_for('posts.view_post', post_id=post.id) }}" class="btn btn-primary mb-3">Открыть карточку</a>
+
+            <a href="{{ url_for('posts.view_post', post_id=post.id, back_link=back_link, category_id=category_id) }}" alt="{{ url_for('posts.view_post', post_id=post.id, back_link=back_link, category_id=category_id) }}" class="btn btn-primary mb-3">Открыть карточку</a>
+
             {% if current_user.username == 'admin' %}
                 <a href="{{ post.link }}" alt="{{ post.link }}" class="btn btn-primary mb-3">Перейти к исходнику</a>
             {% endif %}
@@ -30,5 +32,7 @@
     {% endblock pagination %}
 
 </div> 
+
+
 
 {% endblock content %}

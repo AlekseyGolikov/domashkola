@@ -39,6 +39,19 @@
             {{ form.submit(class="w-100 btn btn-lg btn-primary")}}
             <!--<button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>-->
             <hr class="my-4">
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul>
+                        {% for message in messages %}
+                            <li><span style="color: red;">[{{ message }}]</span></li>
+                        {% endfor %}
+                    </ul>
+                    <hr class="my-4">
+                {% endif %}
+            {% endwith %}
+
+            
             <small class="text-body-secondary">Нажимая "Войти" Вы соглашаетесь с условиями пользования ресурсами сайта.</small>
           </form>
         </div>

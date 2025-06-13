@@ -32,4 +32,4 @@ def index():
     return render_template(url_for('main.index')+".html", title="Домашняя школа", 
                            posts=posts.items, next_url=next_url, prev_url=prev_url,
                            current_page=posts.page, qty_of_pages=posts.pages, 
-                           form=form, categories=categories)
+                           form=form, categories=categories, back_link=1, category_id=0)

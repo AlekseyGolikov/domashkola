@@ -16,8 +16,9 @@ def login():
     if form.validate_on_submit():
         user = db.session.scalar(sa.select(Users).where(Users.username == form.username.data))
         if user is None or not user.check_password(password=form.password.data):
-            logger.info("Пользователь {} или пароль {} введены неверно"
-                        .format(form.username.data, form.password.data))
+            # logger.info("Пользователь {} или пароль {} введены неверно"
+            #             .format(form.username.data, form.password.data))
+            flash('Неправильно введены логин или пароль!')
             return redirect(url_for('users.login'))
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')

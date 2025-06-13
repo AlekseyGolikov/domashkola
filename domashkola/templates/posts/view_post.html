@@ -24,7 +24,14 @@
             <li class="list-group-item">Vestibulum at eros</li> -->
         </ul>
         <div class="card-body">
-            <a href="#" alt="#" class="btn btn-primary mb-3" >Вернуться назад</a>
+            
+            {% if back_link|int == 1 %}
+                <a href=" {{ url_for('main.index') }} " alt="{{ url_for('main.index') }}" class="btn btn-primary mb-3" >Вернуться назад</a>
+            {% endif %}
+            {% if back_link|int == 2 %}
+                <a href=" {{ url_for('posts.view_posts', category_id=category_id|int) }} " alt="{{ url_for('posts.view_posts', category_id=category_id) }}" class="btn btn-primary mb-3" >Вернуться назад</a>
+            {% endif %}
+
             {% if current_user.username == 'admin' %}
                 <a href="{{ post.link }}" alt="{{ post.link }}" class="btn btn-primary mb-3">Перейти по ссылке</a>
             {% endif %}
