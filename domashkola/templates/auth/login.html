@@ -20,13 +20,13 @@
 
             </div>
             <div class="form-floating mb-3">
-              {{ form.password(type="password", class="form-control", id="floatingPassword", placeholder="{{ form.password.label }}") }}
-              
-              <label for="floatingPassword">{{ form.password.label }}</label>
+                {{ form.password(type="password", class="form-control", id="floatingPassword", placeholder="{{ form.password.label }}") }}
+                
+                <label for="floatingPassword">{{ form.password.label }}</label>
 
-              {% for error in form.password.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-              {% endfor %}
+                {% for error in form.password.errors %}
+                    <div class="p-1 mb-2 bg-danger text-white text-center rounded">[{{ error }}]</div>
+                {% endfor %}
 
             </div>
             <div class="checkbox mb-3">
@@ -44,7 +44,10 @@
                 {% if messages %}
                     <ul>
                         {% for message in messages %}
-                            <li><span style="color: red;">[{{ message }}]</span></li>
+
+                            <li>
+                                <div class="p-1 mb-2 bg-danger text-white text-center rounded">[{{ message }}]</div>
+                            </li>
                         {% endfor %}
                     </ul>
                     <hr class="my-4">

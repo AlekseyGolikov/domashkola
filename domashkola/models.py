@@ -58,7 +58,7 @@ class Posts(db.Model):
 
     def __repr__(self):
         return '<Post {}. {} от {}. Приложенные файлы: {}. Категория: {}. Статус ограничения: {}. Приоритет: {}>\n'.format(self.id, 
-                                                                                                                           self.body, 
+                                                                                                                           self.body[:30]+'...', 
                                                                                                                            self.timestamp, 
                                                                                                                            self.attached_files, 
                                                                                                                            self.category_id, 

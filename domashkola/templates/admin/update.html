@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+
+
+    <div class="card my-2">
+        <h5 class="card-header">
+            Редактирование карточки 
+
+            {% if post.header %}
+                {{ post.header }}
+            {% else %}
+                {{ post.body | truncate(length=35, killwords=True) }}
+            {% endif %}
+
+        </h5>
+
+        <div class="card-body">
+
+
+            
+
+            <form method="post" novalidate>
+                {{ form.hidden_tag() }}
+
+                <div class="d-flex justify-content-around">
+
+                    {% if back_link|int == 1 %}
+
+                        <!-- Кнопка "вернуться назад" на страницу main/index.html -->
+                        <a href=" {{ url_for('main.index') }} " alt="{{ url_for('main.index') }}" class="btn btn-primary col-3 mb-3" >Вернуться назад</a>
+
+                    {% endif %}
+                    {% if back_link|int == 2 %}
+
+                        <!-- Кнопка "вернуться назад" на страницу posts/view_posts.html -->
+                        <a href=" {{ url_for('posts.view_posts', category_id=post.category_id) }} " alt="{{ url_for('posts.view_posts', category_id=category_id) }}" class="btn btn-primary col-3 mb-3" >Вернуться назад</a>
+
+                    {% endif %}
+                    {% if back_link|int == 3 %}
+
+                        <!-- Кнопка "вернуться назад" на страницу posts/view_post.html -->
+                        <a href=" {{ url_for('posts.view_post', post_id=post.id, back_link=3) }} " alt="{{ url_for('posts.view_post', post_id=post.id, back_link=3) }}" class="btn btn-primary col-3 mb-3" >Вернуться назад</a>
+
+                    {% endif %}
+                    {% if back_link|int == 4 %}
+
+                        <!-- Кнопка "Вернуться назад" на admin/index.html -->
+                        <a href="{{ url_for('admin.index') }}" alt="{{ url_for('admin.index') }}" class="btn btn-primary col-3 mb-3">Вернуться к списку</a>
+                    
+                    {% endif %}
+
+                    <!-- Кнопка "удалить" -->
+                    <a href="{{ url_for('admin.delete', post_id=post.id) }}" alt="{{ url_for('admin.delete', post_id=post.id) }}"  class="btn btn-primary col-3 mb-3">Удалить</a>
+
+                    <!-- Кнопка подтверждения записи -->
+                    {{ form.submit(class="btn btn-primary col-3 mb-3") }}
+                </div>
+                
+                
+                
+                <div class="d-flex flex-column mb-3">
+
+                    <!-- Выбор категории -->
+                    {{ form.select_category( class="form-select mb-3" ) }}
+                    <div id="nonselect_error" class="p-1 mb-2 bg-danger text-white text-center rounded" hidden>Необходимо выбрать категорию!</div>
+
+                    <!-- Заголовок карточки -->
+                    <div class="mb-3 ">
+                        <label for="header" class="form-label input-group-text mb-0" style="border-radius: 7px 7px 0 0; border-bottom-style: none;">{{ form.header.label() }}</label>
+                        {{ form.header( class="form-control mt-0", value=post.header, style="border-radius: 0 0 7px 7px;" ) }} 
+                    </div>
+                    <!-- Текст карточки -->
+                    <div class="mb-3 ">
+
+                        <label for="body" class="form-label input-group-text mb-0" style="border-radius: 7px 7px 0 0; border-bottom-style: none;">{{ form.body.label() }}</label>
+                        {{ form.body( class="form-control mt-0", style="border-radius: 0 0 7px 7px;" ) }}
+                     
+                        {% if form.body.errors %}
+                            {% for error in form.body.errors %}
+                                <div class="p-1 mb-2 bg-danger text-white text-center rounded">{{ error }}</div>
+                            {% endfor %}
+                        {% else %}
+                            <div id="input_keywords_help_block" class="form-text">
+                                Поле обязательно для заполнения!
+                            </div>
+                        {% endif %}
+                        
+                    </div>
+                    <!-- Ключевые слова -->
+                    <div class="mb-3 ">
+                        <label for="keywords" class="form-label input-group-text mb-0" style="border-radius: 7px 7px 0 0; border-bottom-style: none;">{{ form.keywords.label() }}</label>
+                        {{ form.keywords( class="form-control mt-0", value=post.keywords, style="border-radius: 0 0 7px 7px;" ) }}
+                        <div id="input_keywords_help_block" class="form-text">
+                            Ключевые слова нужно вводить через запятую!
+                        </div>
+                    </div>
+                    <!-- Ссылка на исходный пост -->
+                    <div class="mb-3 ">
+                        <label for="link" class="form-label input-group-text mb-0" style="border-radius: 7px 7px 0 0; border-bottom-style: none;">{{ form.link.label() }}</label>
+                        {{ form.link( class="form-control mt-0", value=post.link, style="border-radius: 0 0 7px 7px;" ) }}
+                    </div>
+                </div>
+                    
+                <!-- Прилагаемые файлы -->
+                {{ form.attached_files(hidden=true) }}
+                <!-- Ввод id категории -->
+                {{ form.category_id(hidden=true) }}  
+                
+                
+            </form>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul>
+                        {% for message in messages %}
+                            <li>
+
+                                <div class="p-1 mb-2 bg-danger text-white text-center rounded">{{ message }}</div>
+
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+
+        </div>
+      </div> 
+
+</div>
+
+{% endblock content %}

@@ -10,7 +10,7 @@ FLASK_APP = os.environ['FLASK_APP']
 FLASK_DEBUG = os.environ['FLASK_DEBUG']
 SECRET_KEY = os.environ['SECRET_KEY']
 
-BOOTSTRAP_BOOTSWATCH_THEME = 'United'   # Тема Bootstrap
+BOOTSTRAP_BOOTSWATCH_THEME = 'Lumen'   # Тема Bootstrap
 POSTS_PER_PAGE = 3                      # Количество постов на странице
 
 DB_USERNAME = os.environ['DB_USERNAME']

@@ -25,6 +25,8 @@ def create_app():
 
     from domashkola.main import main
     app.register_blueprint(main)
+    from domashkola.admin import admin
+    app.register_blueprint(admin, url_prefix='/admin')
     from domashkola.posts import posts
     app.register_blueprint(posts, url_prefix='/posts')
     from domashkola.auth import users

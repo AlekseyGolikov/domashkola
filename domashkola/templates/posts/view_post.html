@@ -6,37 +6,87 @@
 
     <div class="card">
         <!-- <img src="..." class="card-img-top" alt="..."> -->
-        <div class="card-header">
-            <h5 class="card-title ">Категория: {{ post.category_name }}</h5>
+        <div class="card-header ">
+            <h5 class="card-title " style="align-items: center" >
+                
+                    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" >
+                        <ol class="breadcrumb  "  >
+                            <li class="breadcrumb-item ">{{ post.category_name }}</li>
+                            <li class="breadcrumb-item  active" aria-current="page">
+                                {% if post.header %}
+                                    {{ post.header }}
+                                {% else %}
+                                    {{ post.body | truncate(length=35, killwords=True) }}
+                                {% endif %}
+                            </li>
+                            <li class="breadcrumb-item active">[{{ post.id }}]</li>
+                        </ol>
+                    </nav>
+               
+                
+
+            </h5>
         </div>
-        <div class="card-body">
-          
-            <h6 class="card-subtitle mb-2 text-muted">{{ post.header }}</h6>
-            <p class="card-text">{{ post.body }}</p>
-        </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-                {% for keyword in keywords_list %}
-                <a href="#" class="text-decoration-none fst-italic fw-light m-1">{{ keyword }}</a>
-                {% endfor %}
-            </li>
-            <!-- <li class="list-group-item">Dapibus ac facilisis in</li>
-            <li class="list-group-item">Vestibulum at eros</li> -->
-        </ul>
+
         <div class="card-body">
             
             {% if back_link|int == 1 %}
-                <a href=" {{ url_for('main.index') }} " alt="{{ url_for('main.index') }}" class="btn btn-primary mb-3" >Вернуться назад</a>
+
+                <!-- Кнопка "вернуться назад" на страницу main/index.html -->
+                <a href=" {{ url_for('main.index') }} " alt="{{ url_for('main.index') }}" class="btn btn-primary col-2 " >Вернуться назад</a>
+
             {% endif %}
             {% if back_link|int == 2 %}
-                <a href=" {{ url_for('posts.view_posts', category_id=category_id|int) }} " alt="{{ url_for('posts.view_posts', category_id=category_id) }}" class="btn btn-primary mb-3" >Вернуться назад</a>
+
+                <!-- Кнопка "вернуться назад" на страницу posts/view_posts.html -->
+                <a href=" {{ url_for('posts.view_posts', category_id=post.category_id) }} " alt="{{ url_for('posts.view_posts', category_id=category_id) }}" class="btn btn-primary col-2 " >Вернуться назад</a>
+
+            {% endif %}
+            {% if back_link|int == 4 %}
+
+                <!-- Кнопка "вернуться назад" на страницу admin/index.html -->
+                <a href=" {{ url_for('admin.index') }} " alt="{{ url_for('admin.index') }}" class="btn btn-primary col-2 " >Вернуться назад</a>
+
             {% endif %}
 
+            <!-- Действия, разрешённые в административной панель -->
             {% if current_user.username == 'admin' %}
-                <a href="{{ post.link }}" alt="{{ post.link }}" class="btn btn-primary mb-3">Перейти по ссылке</a>
+
+                <!-- Кнопка "Перейти по ссылке" на оригинальный пост -->
+                <a href="{{ post.link }}" alt="{{ post.link }}"  target="_blank" class="btn btn-primary col-2 ">Перейти по ссылке</a>
+                
+                <!-- Кнопка "редактировать" -->
+                <a href="{{ url_for('admin.update', post_id=post.id, back_link=3) }}" alt="{{ url_for('admin.update', post_id=post.id, back_link=back_link) }}"  class="btn btn-primary col-2 ">Редактировать</a>
+
+                <!-- Кнопка "удалить" -->
+                <a href="{{ url_for('admin.delete', post_id=post.id) }}" alt="{{ url_for('admin.delete', post_id=post.id) }}"  class="btn btn-primary col-2 ">Удалить</a>
+            
             {% endif %}
         </div>
-      </div>
+
+        {% if post.keywords and (post.keywords|length > 1) %}
+            {% set keywords_list = post.keywords.split(',') %}
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    
+                    {% for keyword in keywords_list %}
+                        <a href="#" class="text-decoration-none fst-italic fw-light m-1">{{ keyword|trim }}</a>
+                    {% endfor %}
+                    
+                </li>
+                <!-- <li class="list-group-item">Dapibus ac facilisis in</li>
+                <li class="list-group-item">Vestibulum at eros</li> -->
+            </ul>
+        {% endif %}
+
+        <div class="card-body">
+          
+            <p class="card-text">{{ post.body }}</p>
+
+        </div>
+        
+        
+    </div>
 
 
 </div>

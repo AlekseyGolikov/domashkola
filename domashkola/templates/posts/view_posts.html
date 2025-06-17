@@ -10,15 +10,58 @@
 
     <div class="card my-2">
         <h5 class="card-header">
-            {{ post.category_name.capitalize() }}
+
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">{{ post.category_name }}</li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        {% if post.header %}
+                            {{ post.header }}
+                        {% else %}
+                            {{ post.body | truncate(length=50, killwords=True) }}
+                        {% endif %}
+                    </li>
+                    <li class="breadcrumb-item active">[{{ post.id }}]</li>
+                </ol>
+            </nav>
+
         </h5>
         <div class="card-body">
-            <h5 class="card-title">{{ post.body | truncate(length=50, killwords=True) }}</h5>
+            <h5 class="card-title"></h5>
             <p class="card-text">{{ post.body | truncate(length=350, killwords=True) }}</p>
+            <p class="card-text fst-italic">
+                {% if post.keywords %}
+                        {% if post.keywords and (post.keywords|length > 1) %}
+                            {% set keywords_list = post.keywords.split(',') %}
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    
+                                    {% for keyword in keywords_list %}
+                                        <a href="#" class="text-decoration-none fst-italic fw-light m-1">{{ keyword|trim }}</a>
+                                    {% endfor %}
+                                    
+                                </li>
+                                <!-- <li class="list-group-item">Dapibus ac facilisis in</li>
+                                <li class="list-group-item">Vestibulum at eros</li> -->
+                            </ul>
+                        {% endif %}
+                {% endif %}
+            </p>
 
-            <a href="{{ url_for('posts.view_post', post_id=post.id, back_link=back_link, category_id=category_id) }}" alt="{{ url_for('posts.view_post', post_id=post.id, back_link=back_link, category_id=category_id) }}" class="btn btn-primary mb-3">Открыть карточку</a>
+            {% if post.attached_files %}
+                <p class="card-text">{{ post.attached_files }}</p>
+            {% endif %}
+            
+            <!-- Кнопка "открыть карточку" -->
+            <a href="{{ url_for('posts.view_post', post_id=post.id, back_link=back_link) }}" alt="{{ url_for('posts.view_post', post_id=post.id, back_link=back_link) }}" class="btn btn-primary ">Открыть карточку</a>
+            
             {% if current_user.username == 'admin' %}
-                <a href="{{ post.link }}" alt="{{ post.link }}" class="btn btn-primary mb-3">Перейти к исходнику</a>
+                
+                <!-- Кнопка "перейти по ссылке" на оригинальный ресурс -->
+                <a href="{{ post.link }}" alt="{{ post.link }}" target="_blank" class="btn btn-primary ">Перейти по ссылке</a>
+
+                <!-- Кнопка "редактировать" -->
+                <a href="{{ url_for('admin.update', post_id=post.id, back_link=back_link) }}" alt="{{ url_for('admin.update', post_id=post.id, back_link=back_link) }}"  class="btn btn-primary col-2 ">Редактировать</a>
             {% endif %}
         </div>
       </div>

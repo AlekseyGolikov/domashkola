@@ -21,7 +21,7 @@ def index():
     
     # logger.info("page: {}, {}".format(page, type(page)))
     categories = db.session.scalars(sa.select(Categories).order_by(Categories.id.asc())).all()
-    posts = db.paginate(sa.select(Posts).order_by(Posts.id.desc()), page=page,
+    posts = db.paginate(sa.select(Posts).order_by(Posts.timestamp.asc()), page=page,
                         per_page=current_app.config['POSTS_PER_PAGE'], error_out=False)
     
     next_url = url_for('main.index', page=posts.next_num) \
@@ -32,4 +32,8 @@ def index():
     return render_template(url_for('main.index')+".html", title="Домашняя школа", 
                            posts=posts.items, next_url=next_url, prev_url=prev_url,
                            current_page=posts.page, qty_of_pages=posts.pages, 
-                           form=form, categories=categories, back_link=1, category_id=0)
+                           form=form, categories=categories, back_link=1)
+                                            # back_link=1 - для возврата на main.index
+                                            # back_link=2 - для возврата на posts.view_posts
+                                            # back_link=3 - для возврата на posts.view_post
+                                            # back_link=4 - для возврата на admin.index

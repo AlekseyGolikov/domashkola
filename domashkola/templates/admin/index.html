@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+
+            {% for message in messages %}
+
+                    {% if 'Ошибка' in message %}
+                        <div class="p-1 mb-2 bg-danger text-white text-center rounded">{{ message }}</div>
+                    {% else %}
+                        <div class="p-3 mb-2 bg-success text-white text-center rounded">{{ message }}</div>
+                    {% endif %}
+
+
+            {% endfor %}
+
+        {% endif %}
+    {% endwith %}
+
+
+    {% for post in posts %}
+
+        <div class="card my-2">
+            <h5 class="card-header">
+                
+                <div class="input-group" ">
+                    <select class="form-select" id="sc" aria-label="Example select with button addon">
+                        {% for category in categories %}
+                            <option>{{ category.category_name }}</option>
+                        {% endfor %}
+                    </select>
+                    <button class="btn btn-outline-secondary" type="button">Записать</button>
+                </div>
+                
+            </h5>
+            <div class="card-body">
+                <h5 class="card-title">
+                    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                        <ol class="breadcrumb  ">
+                            <li class="breadcrumb-item ">
+                                <div class="d-flex flex-row">
+                                    <div class="">
+                                        {% if post.category_id == 1 %}
+                                            <div class="text-bg-warning p-1">
+                                                {{ post.category_name }}   
+                                            </div>
+                                        {% else %}
+                                                {{ post.category_name }}
+                                            
+                                        {% endif %}
+                                    </div>
+                                    <!-- НЕ УДАЛЯТЬ, используется в скриптах base.html для определения категории для постов -->
+                                    <div id="cat_id" hidden>
+                                        {{ post.category_id|int }}
+                                    </div>
+                                    
+                                </div>
+
+                            </li>
+                            <li class="breadcrumb-item active item " aria-current="page">
+                                {% if post.header %}
+                                    {{ post.header }}
+                                {% else %}
+                                    {{ post.body | truncate(length=50, killwords=True) }}
+                                {% endif %}
+                            </li>
+                            <li class="breadcrumb-item active item  " aria-current="page">
+                                <div class="d-flex flex-row mb-3">
+                                    
+                                    <div id="post_id">
+                                        [{{ post.id }}]
+                                    </div>
+                                </div>    
+                            </li>
+                        </ol>
+                    </nav>   
+                </h5>
+
+                <p class="card-text">{{ post.body | truncate(length=350, killwords=True) }}</p>
+
+                <p class="card-text fst-italic">
+                    {% if post.keywords %}
+                            {% if post.keywords and (post.keywords|length > 1) %}
+                                {% set keywords_list = post.keywords.split(',') %}
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        
+                                        {% for keyword in keywords_list %}
+                                            <a href="#" class="text-decoration-none fst-italic fw-light m-1">{{ keyword|trim }}</a>
+                                        {% endfor %}
+                                        
+                                    </li>
+                                    <!-- <li class="list-group-item">Dapibus ac facilisis in</li>
+                                    <li class="list-group-item">Vestibulum at eros</li> -->
+                                </ul>
+                            {% endif %}
+                    {% endif %}
+                </p>
+
+                <!-- Кнопка "Открыть карточку" -->
+                <a href="{{ url_for('posts.view_post', post_id=post.id, back_link=back_link) }}" alt="{{ url_for('posts.view_post', post_id=post.id, back_link=back_link) }}" class="btn btn-primary">Открыть карточку</a>
+
+                <!-- Кнопка "Перейти по ссылке" к оригинальному посту -->
+                <a href="{{ post.link }}" alt="{{ post.link }}"  target="_blank"  class="btn btn-primary">Перейти по ссылке</a>
+                
+                <!-- Кнопка "Редактировать" -->
+                <a href="{{ url_for('admin.update', post_id=post.id, back_link=back_link) }}" alt="{{ url_for('admin.update', post_id=post.id, back_link=back_link) }}"  class="btn btn-primary col-2">Редактировать</a>
+
+                <!-- Кнопка "удалить". Убрал во избежание случайных срабатываний -->
+                <!-- <a href="{{ url_for('admin.delete', post_id=post.id) }}" alt="{{ url_for('admin.delete', post_id=post.id) }}"  class="btn btn-primary col-2 mb-3">Удалить</a> -->
+
+            </div>
+        </div>
+
+    {% endfor%}  
+
+    {% block pagination %}
+      {% include 'pagination.html' %}
+    {% endblock pagination %}
+
+</div>
+
+
+
+{% endblock content %}

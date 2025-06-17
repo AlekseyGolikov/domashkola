@@ -1,76 +1,172 @@
 <!doctype html>
 <html lang="ru">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Aleks Golikov">
-    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='icons/favicon.svg') }}">
-    
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="Aleks Golikov">
+        <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='icons/favicon.svg') }}">
+        
 
-    <!--STYLES-->
-    {{ bootstrap.load_css() }}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
-    <!--TITLE-->
-    <title>
-      {% block title %}
-        {{ title }}
-      {% endblock title %}
-    </title>
-  </head>
-  <body>
-    <!--Горизонтальное меню-->
-    {% block menu %}
-      {% include 'menu.html' %}
-    {% endblock menu %}
+        <!--STYLES-->
+        {{ bootstrap.load_css() }}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+        <!--TITLE-->
+        <title>
+            {% block title %}
+                {{ title }}
+            {% endblock title %}
+        </title>
+    </head>
+    <body>
+        <!--Горизонтальное меню-->
+        {% block menu %}
+            {% include 'menu.html' %}
+        {% endblock menu %}
 
-    <!--Выплывающее боковое меню-->
-    {% block menu_side %}
-      {% include 'menu_side.html' %}
-    {% endblock menu_side %}
+        <!--Выплывающее боковое меню-->
+        {% block menu_side %}
+            {% include 'menu_side.html' %}
+        {% endblock menu_side %}
 
-    <!--Контент-->
-    <div class="content">
+        {% block modal_window %}
 
-      {% block content %}
+            {% include 'admin/modal.html' %}
+
+        {% endblock modal_window %}
+
+        <!--Контент-->
+        <div class="content">
+
+        {% block content %}
 
 
 
-      {% endblock content%}
+        {% endblock content%}
 
-    </div>
-    
+        </div>
+        
+        
 
+        <!--Подвал-->    
+        <footer class="footer">
+          
+            <div class="container">
+                <footer class="d-flex flex-wrap justify-content-center align-items-center py-3 my-4 border-top">
+                    <p class="col-md-4 mb-0 text-body-secondary text-center">&copy; 2025 Домашняя школа</p>
+                </footer>
+            </div>
 
-    <!--Подвал-->    
-    <footer class="footer">
-      
-      <div class="container">
-        <footer class="d-flex flex-wrap justify-content-center align-items-center py-3 my-4 border-top">
-          <p class="col-md-4 mb-0 text-body-secondary text-center">&copy; 2025 Домашняя школа</p>
         </footer>
-      </div>
+        
+        <!--JAVASCRIPT-->
+        {{ bootstrap.load_js() }}
+        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+        <script type="text/javascript">
+            
+          
+            //ОБРАБОТКА ФОРМЫ ЗАПОЛНЕНИЯ НОВОЙ КАРТОЧКИ В АДМИНИСТРАТИВНОЙ ПАНЕЛИ /admin/insert.html
+            //Поле "Выберите категорию" селектора Select сделаем недоступным для выбора
+            document.getElementById("select_category").item(0).disabled = true;
+            //Полю "id категории" присвоим значение выбранного селектора
+            document.getElementById("select_category").addEventListener("change", () => {
+                document.getElementById("category_id").value = document.getElementById("select_category").options.selectedIndex;
+            });
+            //Задём исчезновение placeholderов в полях при нажатии ЛКМ
+            //и появление - при нажатии вне элемента
+            document.getElementById("header").addEventListener("focus", () => {
+                document.getElementById("header").placeholder = ''
+            });
+            document.getElementById("header").addEventListener("blur", () => {
+                document.getElementById("header").placeholder = 'Введите заголовок карточки'
+            });
+            document.getElementById("body").addEventListener("focus", () => {
+                document.getElementById("body").placeholder = ''
+            });
+            document.getElementById("body").addEventListener("blur", () => {
+                document.getElementById("body").placeholder = 'Введите текст карточки'
+            });
+            document.getElementById("keywords").addEventListener("focus", () => {
+                document.getElementById("keywords").placeholder = ''
+            });
+            document.getElementById("keywords").addEventListener("blur", () => {
+                document.getElementById("keywords").placeholder = 'Введите ключевые слова к карточке'
+            });
+            document.getElementById("link").addEventListener("focus", () => {
+                document.getElementById("link").placeholder = ''
+            });
+            document.getElementById("link").addEventListener("blur", () => {
+                document.getElementById("link").placeholder = 'Введите ключевые слова к карточке'
+            });
+            window.addEventListener("DOMContentLoaded", () => { 
+                document.getElementById("keywords").placeholder = 'Введите ключевые слова к карточке';
+                document.getElementById("body").placeholder = 'Введите текст карточки'; 
+                document.getElementById("header").placeholder = 'Введите заголовок карточки'
+                document.getElementById("link").placeholder = 'Введите заголовок карточки'
+            });
+        </script>
+        <script type="text/javascript">
+            //ОБРАБОТКА ФОРМЫ ПАГИНАЦИИ pagination.html
+            //Обработка вывода значения текущей открытой в браузере страницы в поле ввода пагинации 
+            var shown_value = myFunc( {{ current_page }} ) + ' из ' + myFunc( {{ qty_of_pages }} );
 
-    </footer>
-    
-    <!--JAVASCRIPT-->
-    {{ bootstrap.load_js() }}
-    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
-    <script type="text/javascript">
-      
+            document.getElementById("input_page").addEventListener("blur", () => {
+                document.getElementById("input_page").placeholder = shown_value;
+            });
+            document.getElementById("input_page").addEventListener("focus", () => {
+                document.getElementById("input_page").placeholder = '';
+            });
+            
+            window.addEventListener("DOMContentLoaded", () => {
+                document.getElementById("input_page").value = '';
+                document.getElementById("input_page").placeholder = shown_value; 
+                document.getElementById("body").placeholder = 'Текст карточки';
+            });
 
+        </script>
+        <script type="text/javascript">
+            //ОБРАБОТКА ФОРМЫ  admin.insert
+            //Убираю значения, введённые ранее 
+            // window.addEventListener("DOMContentLoaded", () => {
+            //     document.getElementById("header").value = '';
+            //     document.getElementById("body").value = ''; 
+            //     document.getElementById("keywords").value = '';
+            //     document.getElementById("link").value = '';
+            // });
+            
+        </script>
+        
+        {% if post %}
+            <script type="text/javascript">
+                //Обработка формы admin/update.html для ввода body и select_category
+                document.getElementById("body").value = myFunc( {{ post.body|tojson }} );
 
-      //вывести значение текущей открытой в браузере страницы в поле ввода пагинации 
-      document.getElementById("input_page").addEventListener("blur", () => {
-          document.getElementById("input_page").placeholder = myFunc( {{ current_page }} );
-      });
-      document.getElementById("input_page").addEventListener("focus", () => {
-          document.getElementById("input_page").placeholder = '';
-      });
-      document.addEventListener("DOMContentLoaded", () => {
-          document.getElementById("input_page").value = '';
-          document.getElementById("input_page").placeholder = myFunc( {{ current_page }} );
-      });
-   </script>
-  </body>
+                //имитируем событие выбора пункта в теге select
+                var select = document.getElementById("select_category");
+                var selectedIndex = select.options.selectedIndex = myFunc( {{ post.category_id }} ) - 1;
+                select.item(selectedIndex).setAttribute('selected', true);
+                select.dispatchEvent( new Event('change') );
+                
+            </script>
+
+            <script type="text/javascript">
+                //Обработка формы admin/update.html в части вывода ошибки, если не выбрана категория
+                document.getElementById("submit").addEventListener("click", (e) => {
+                    if (document.getElementById("select_category").options.selectedIndex == 0){
+                        document.getElementById("nonselect_error").removeAttribute("hidden");
+                        e.preventDefault();
+                    }
+                    
+                });
+                
+            </script>
+        {% endif %}
+        <script type="text/javascript">
+            //Обработка формы admin/index.html в части привязки названия категории к каждому посту
+            var divs = document.querySelectorAll('#cat_id');
+            var cats = document.getElementsByClassName('form-select');
+            for(var i=0; i<cats.length; i++)
+                cats[i].options.selectedIndex = Number(divs[i].textContent-1);
+        </script>
+    </body>
 </html>

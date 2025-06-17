@@ -34,14 +34,20 @@ def view_posts(category_id):
                             posts=posts.items, next_url=next_url, prev_url=prev_url, 
                             current_page=posts.page, qty_of_pages=posts.pages,
                             form=form, categories=categories, back_link=2)
+                                            # back_link=1 - для возврата на main.index
+                                            # back_link=2 - для возврата на posts.view_posts
+                                            # back_link=3 - для возврата на posts.view_post
+                                            # back_link=4 - для возврата на admin.index
 
-@posts.route('/view_post/<post_id>/<back_link>/<category_id>')
+@posts.route('/view_post/<post_id>/<back_link>')
 @login_required
-def view_post(post_id, back_link, category_id):
+def view_post(post_id, back_link):
     post = db.session.get(Posts, int(post_id))
     categories = db.session.scalars(sa.select(Categories).order_by(Categories.id)).all()
-    keywords_list = post.keywords[:-1].split(",")
-    title = "Карточка поста"
-    logger.info("post_id: {}, back_link: {}, category_id {}".format(post_id, back_link, category_id))
-    return render_template('posts/view_post.html', title=title, post=post, keywords_list=keywords_list,
-                            categories=categories, back_link=back_link, category_id=category_id)
+    # logger.info("post_id: {}, back_link: {}, category_id {}".format(post_id, back_link, category_id))
+    return render_template('posts/view_post.html', title="Карточка поста",  
+                                post=post, categories=categories, back_link=3)
+                                            # back_link=1 - для возврата на main.index
+                                            # back_link=2 - для возврата на posts.view_posts
+                                            # back_link=3 - для возврата на posts.view_post
+                                            # back_link=4 - для возврата на admin.index

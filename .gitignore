@@ -3,3 +3,9 @@ __pycache__/
 domashkola.db
 garbage/
 logs/
+domashkola/templates/menu last 1.html
+domashkola/templates/menu last 2.html
+domashkola/templates/menu initial.html
+domashkola/static/img/logo/logo_nontransparentfon.png
+domashkola/static/img/logo/scool.png
+domashkola/static/img/logo/home.png
