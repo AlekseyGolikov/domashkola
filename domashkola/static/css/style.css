@@ -9,6 +9,9 @@ body{
     flex-direction: column;
 }
 
+
+
+
 .content{
     flex: 1 0 auto;
 }
@@ -18,3 +21,11 @@ body{
 
     flex: 0 0 auto;
 }
+
+.btn, 
+.category-warning {
+    border-radius: 10rem;
+}
+
+
+

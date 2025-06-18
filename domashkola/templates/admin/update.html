@@ -25,38 +25,96 @@
             <form method="post" novalidate>
                 {{ form.hidden_tag() }}
 
-                <div class="d-flex justify-content-around">
+                <!-- <div class=""> -->
 
-                    {% if back_link|int == 1 %}
+
+                    <div class="d-flex flex-column flex-md-row justify-content-start  ">
+
+                        {% if back_link|int == 1 %}
+
+                            <!-- Кнопка "вернуться назад" на страницу main/index.html -->
+                            <div class="mb-1 me-1 col-7 col-md-3  ">
+                                <a class="btn btn-sm btn-outline-primary w-100" href=" {{ url_for('main.index') }} " alt="{{ url_for('main.index') }}" role="button">
+                                    Вернуться назад
+                                </a>
+                            </div>
+                        
+                        {% endif %}
+                        <!-- {% if back_link|int == 2 %} -->
+
+                            <!-- Кнопка "вернуться назад" на страницу posts/view_posts.html -->
+                            <div class="mb-1 me-1 col-7 col-md-3  ">
+                                <a class="btn btn-sm btn-outline-primary w-100" href=" {{ url_for('posts.view_posts', category_id=post.category_id) }} " alt="{{ url_for('posts.view_posts', category_id=category_id) }}" role="button">
+                                    Вернуться назад
+                                </a>
+                            </div>
+
+                        <!-- {% endif %} -->
+                        <!-- {% if back_link|int == 3 %} -->
+
+                            <!-- Кнопка "вернуться назад" на страницу post/view_post.html -->
+                            <div class="mb-1 me-1 col-7 col-md-3  ">
+                                <a class="btn btn-sm btn-outline-primary w-100" href=" {{ url_for('posts.view_post', post_id=post.id, back_link=3) }} " role="button">
+                                    Вернуться назад
+                                </a>
+                            </div>
+
+                        <!-- {% endif %}
+                        {% if back_link|int == 4 %} -->
+
+                            <!-- Кнопка "Вернуться к списку" на admin/index.html -->
+                            <div class="mb-1 me-1 col-7 col-md-3  ">
+                                <a class="btn btn-sm btn-outline-primary w-100" href="{{ url_for('admin.index') }}" alt="{{ url_for('admin.index') }}" role="button">
+                                    Вернуться к списку
+                                </a>
+                            </div>
+
+                        <!-- {% endif %} -->
+
+                            <!-- Кнопка "удалить" -->
+                            <div class="mb-1 col-7 col-md-3  ">
+                                <a class="btn btn-sm btn-outline-primary w-100" href="{{ url_for('admin.delete', post_id=post.id) }}" alt="{{ url_for('admin.delete', post_id=post.id) }}" role="button">
+                                    Удалить
+                                </a>
+                            </div>
+                    <!-- </div> -->
+
+
+
+                    <!-- {% if back_link|int == 1 %} -->
 
                         <!-- Кнопка "вернуться назад" на страницу main/index.html -->
-                        <a href=" {{ url_for('main.index') }} " alt="{{ url_for('main.index') }}" class="btn btn-primary col-3 mb-3" >Вернуться назад</a>
+                        <!-- <a href=" {{ url_for('main.index') }} " alt="{{ url_for('main.index') }}" class="btn btn-primary col-3 mb-3" >Вернуться назад</a>
 
                     {% endif %}
-                    {% if back_link|int == 2 %}
+                    {% if back_link|int == 2 %} -->
 
                         <!-- Кнопка "вернуться назад" на страницу posts/view_posts.html -->
-                        <a href=" {{ url_for('posts.view_posts', category_id=post.category_id) }} " alt="{{ url_for('posts.view_posts', category_id=category_id) }}" class="btn btn-primary col-3 mb-3" >Вернуться назад</a>
+                        <!-- <a href=" {{ url_for('posts.view_posts', category_id=post.category_id) }} " alt="{{ url_for('posts.view_posts', category_id=category_id) }}" class="btn btn-primary col-3 mb-3" >Вернуться назад</a>
 
                     {% endif %}
-                    {% if back_link|int == 3 %}
+                    {% if back_link|int == 3 %} -->
 
                         <!-- Кнопка "вернуться назад" на страницу posts/view_post.html -->
-                        <a href=" {{ url_for('posts.view_post', post_id=post.id, back_link=3) }} " alt="{{ url_for('posts.view_post', post_id=post.id, back_link=3) }}" class="btn btn-primary col-3 mb-3" >Вернуться назад</a>
+                        <!-- <a href=" {{ url_for('posts.view_post', post_id=post.id, back_link=3) }} " alt="{{ url_for('posts.view_post', post_id=post.id, back_link=3) }}" class="btn btn-primary col-3 mb-3" >Вернуться назад</a>
 
                     {% endif %}
-                    {% if back_link|int == 4 %}
+                    {% if back_link|int == 4 %} -->
 
-                        <!-- Кнопка "Вернуться назад" на admin/index.html -->
-                        <a href="{{ url_for('admin.index') }}" alt="{{ url_for('admin.index') }}" class="btn btn-primary col-3 mb-3">Вернуться к списку</a>
+                        <!-- Кнопка "Вернуться к списку" на admin/index.html -->
+                        <!-- <a href="{{ url_for('admin.index') }}" alt="{{ url_for('admin.index') }}" class="btn btn-primary col-3 mb-3">Вернуться к списку</a>
                     
-                    {% endif %}
+                    {% endif %} -->
 
                     <!-- Кнопка "удалить" -->
-                    <a href="{{ url_for('admin.delete', post_id=post.id) }}" alt="{{ url_for('admin.delete', post_id=post.id) }}"  class="btn btn-primary col-3 mb-3">Удалить</a>
+                    <!-- <a href="{{ url_for('admin.delete', post_id=post.id) }}" alt="{{ url_for('admin.delete', post_id=post.id) }}"  class="btn btn-primary col-3 mb-3">Удалить</a> -->
 
                     <!-- Кнопка подтверждения записи -->
-                    {{ form.submit(class="btn btn-primary col-3 mb-3") }}
+                    <div class="mb-1 col-7 col-md-3 border ">
+                        {{ form.submit(class="btn btn-sm btn-outline-primary w-100") }}
+                    </div>
+
+                    <!-- {{ form.submit(class="btn btn-sm btn-outline-primary w-100") }} -->
                 </div>
                 
                 

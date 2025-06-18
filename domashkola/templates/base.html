@@ -6,7 +6,7 @@
         <meta name="description" content="">
         <meta name="author" content="Aleks Golikov">
         <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='icons/favicon.svg') }}">
-        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"> 
 
         <!--STYLES-->
         {{ bootstrap.load_css() }}
@@ -29,9 +29,8 @@
             {% include 'menu_side.html' %}
         {% endblock menu_side %}
 
+        <!-- Выплывающее модальное окно -->
         {% block modal_window %}
-
-            {% include 'admin/modal.html' %}
 
         {% endblock modal_window %}
 

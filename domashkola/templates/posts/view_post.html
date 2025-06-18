@@ -30,38 +30,92 @@
 
         <div class="card-body">
             
-            {% if back_link|int == 1 %}
+            
+
+
+            <div class="d-flex flex-column flex-md-row justify-content-start  ">
+
+                {% if back_link|int == 1 %}
+                    <!-- Кнопка "вернуться назад" на страницу main/index.html -->
+                    <div class="mb-1 me-1 col-7 col-md-3  ">
+                        <a class="btn btn-sm btn-outline-primary w-100" href=" {{ url_for('main.index') }} " alt="{{ url_for('main.index') }}" role="button">
+                            Вернуться назад
+                        </a>
+                    </div>
+                {% endif %}
+                {% if back_link|int == 2 %}
+                    <!-- Кнопка "вернуться назад" на страницу posts/view_posts.html -->
+                    <div class="mb-1 me-1 col-7 col-md-3  ">
+                        <a class="btn btn-sm btn-outline-primary w-100" href=" {{ url_for('posts.view_posts', category_id=post.category_id) }} " alt="{{ url_for('posts.view_posts', category_id=category_id) }}" role="button">
+                            Вернуться назад
+                        </a>
+                    </div>
+                {% endif %}
+                {% if back_link|int == 4 %}      
+                    <!-- Кнопка "вернуться назад" на страницу admin/index.html -->
+                    <div class="mb-1 col-7 col-md-3  ">
+                        <a class="btn btn-sm btn-outline-primary w-100" href=" {{ url_for('admin.index') }} " alt="{{ url_for('admin.index') }}" role="button">
+                            Вернуться назад
+                        </a>
+                    </div>
+                {% endif %}
+
+                    <!-- Действия, разрешённые в административной панель -->
+                {% if current_user.username == 'admin' %}
+        
+                    <!-- Кнопка "Перейти по ссылке" на оригинальный пост -->
+                    <div class="mb-1 col-7 col-md-3  ">
+                        <a class="btn btn-sm btn-outline-primary w-100" href="{{ post.link }}" alt="{{ post.link }}"  target="_blank" role="button">
+                            Перейти по ссылке
+                        </a>
+                    </div>
+                    <!-- Кнопка "редактировать" -->
+                    <div class="mb-1 col-7 col-md-3  ">
+                        <a class="btn btn-sm btn-outline-primary w-100" href="{{ url_for('admin.update', post_id=post.id, back_link=3) }}" alt="{{ url_for('admin.update', post_id=post.id, back_link=back_link) }}" role="button">
+                            Редактировать
+                        </a>
+                    </div>
+                    <!-- Кнопка "удалить" -->
+                    <div class="mb-1 col-7 col-md-3  ">
+                        <a class="btn btn-sm btn-outline-primary w-100" href="{{ url_for('admin.delete', post_id=post.id) }}" alt="{{ url_for('admin.delete', post_id=post.id) }}" role="button">
+                            Удалить
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+            
+            <!-- {% if back_link|int == 1 %} -->
 
                 <!-- Кнопка "вернуться назад" на страницу main/index.html -->
-                <a href=" {{ url_for('main.index') }} " alt="{{ url_for('main.index') }}" class="btn btn-primary col-2 " >Вернуться назад</a>
+                <!-- <a href=" {{ url_for('main.index') }} " alt="{{ url_for('main.index') }}" class="btn btn-primary col-2 " >Вернуться назад</a>
 
             {% endif %}
-            {% if back_link|int == 2 %}
+            {% if back_link|int == 2 %} -->
 
                 <!-- Кнопка "вернуться назад" на страницу posts/view_posts.html -->
-                <a href=" {{ url_for('posts.view_posts', category_id=post.category_id) }} " alt="{{ url_for('posts.view_posts', category_id=category_id) }}" class="btn btn-primary col-2 " >Вернуться назад</a>
+                <!-- <a href=" {{ url_for('posts.view_posts', category_id=post.category_id) }} " alt="{{ url_for('posts.view_posts', category_id=category_id) }}" class="btn btn-primary col-2 " >Вернуться назад</a>
 
             {% endif %}
-            {% if back_link|int == 4 %}
+            {% if back_link|int == 4 %} -->
 
                 <!-- Кнопка "вернуться назад" на страницу admin/index.html -->
-                <a href=" {{ url_for('admin.index') }} " alt="{{ url_for('admin.index') }}" class="btn btn-primary col-2 " >Вернуться назад</a>
+                <!-- <a href=" {{ url_for('admin.index') }} " alt="{{ url_for('admin.index') }}" class="btn btn-primary col-2 " >Вернуться назад</a>
 
-            {% endif %}
+            {% endif %} -->
 
             <!-- Действия, разрешённые в административной панель -->
-            {% if current_user.username == 'admin' %}
+            <!-- {% if current_user.username == 'admin' %} -->
 
                 <!-- Кнопка "Перейти по ссылке" на оригинальный пост -->
-                <a href="{{ post.link }}" alt="{{ post.link }}"  target="_blank" class="btn btn-primary col-2 ">Перейти по ссылке</a>
+                <!-- <a href="{{ post.link }}" alt="{{ post.link }}"  target="_blank" class="btn btn-primary col-2 ">Перейти по ссылке</a> -->
                 
                 <!-- Кнопка "редактировать" -->
-                <a href="{{ url_for('admin.update', post_id=post.id, back_link=3) }}" alt="{{ url_for('admin.update', post_id=post.id, back_link=back_link) }}"  class="btn btn-primary col-2 ">Редактировать</a>
+                <!-- <a href="{{ url_for('admin.update', post_id=post.id, back_link=3) }}" alt="{{ url_for('admin.update', post_id=post.id, back_link=back_link) }}"  class="btn btn-primary col-2 ">Редактировать</a> -->
 
                 <!-- Кнопка "удалить" -->
-                <a href="{{ url_for('admin.delete', post_id=post.id) }}" alt="{{ url_for('admin.delete', post_id=post.id) }}"  class="btn btn-primary col-2 ">Удалить</a>
+                <!-- <a href="{{ url_for('admin.delete', post_id=post.id) }}" alt="{{ url_for('admin.delete', post_id=post.id) }}"  class="btn btn-primary col-2 ">Удалить</a> -->
             
-            {% endif %}
+            <!-- {% endif %} -->
         </div>
 
         {% if post.keywords and (post.keywords|length > 1) %}
