@@ -67,42 +67,11 @@
             //ОБРАБОТКА ФОРМЫ ЗАПОЛНЕНИЯ НОВОЙ КАРТОЧКИ В АДМИНИСТРАТИВНОЙ ПАНЕЛИ /admin/insert.html
             //Поле "Выберите категорию" селектора Select сделаем недоступным для выбора
             document.getElementById("select_category").item(0).disabled = true;
-            //Полю "id категории" присвоим значение выбранного селектора
+            //Полю "category_id" формы form присвоим значение выбранного селектора
             document.getElementById("select_category").addEventListener("change", () => {
                 document.getElementById("category_id").value = document.getElementById("select_category").options.selectedIndex;
             });
-            //Задём исчезновение placeholderов в полях при нажатии ЛКМ
-            //и появление - при нажатии вне элемента
-            document.getElementById("header").addEventListener("focus", () => {
-                document.getElementById("header").placeholder = ''
-            });
-            document.getElementById("header").addEventListener("blur", () => {
-                document.getElementById("header").placeholder = 'Введите заголовок карточки'
-            });
-            document.getElementById("body").addEventListener("focus", () => {
-                document.getElementById("body").placeholder = ''
-            });
-            document.getElementById("body").addEventListener("blur", () => {
-                document.getElementById("body").placeholder = 'Введите текст карточки'
-            });
-            document.getElementById("keywords").addEventListener("focus", () => {
-                document.getElementById("keywords").placeholder = ''
-            });
-            document.getElementById("keywords").addEventListener("blur", () => {
-                document.getElementById("keywords").placeholder = 'Введите ключевые слова к карточке'
-            });
-            document.getElementById("link").addEventListener("focus", () => {
-                document.getElementById("link").placeholder = ''
-            });
-            document.getElementById("link").addEventListener("blur", () => {
-                document.getElementById("link").placeholder = 'Введите ключевые слова к карточке'
-            });
-            window.addEventListener("DOMContentLoaded", () => { 
-                document.getElementById("keywords").placeholder = 'Введите ключевые слова к карточке';
-                document.getElementById("body").placeholder = 'Введите текст карточки'; 
-                document.getElementById("header").placeholder = 'Введите заголовок карточки'
-                document.getElementById("link").placeholder = 'Введите заголовок карточки'
-            });
+            
         </script>
         <script type="text/javascript">
             //ОБРАБОТКА ФОРМЫ ПАГИНАЦИИ pagination.html
@@ -123,17 +92,6 @@
             });
 
         </script>
-        <script type="text/javascript">
-            //ОБРАБОТКА ФОРМЫ  admin.insert
-            //Убираю значения, введённые ранее 
-            // window.addEventListener("DOMContentLoaded", () => {
-            //     document.getElementById("header").value = '';
-            //     document.getElementById("body").value = ''; 
-            //     document.getElementById("keywords").value = '';
-            //     document.getElementById("link").value = '';
-            // });
-            
-        </script>
         
         {% if post %}
             <script type="text/javascript">
@@ -148,15 +106,23 @@
                 
             </script>
 
+
             <script type="text/javascript">
                 //Обработка формы admin/update.html в части вывода ошибки, если не выбрана категория
+                
                 document.getElementById("submit").addEventListener("click", (e) => {
+                    alert(123);
                     if (document.getElementById("select_category").options.selectedIndex == 0){
                         document.getElementById("nonselect_error").removeAttribute("hidden");
                         e.preventDefault();
                     }
                     
                 });
+
+                // window.addEventListener("DOMContentLoaded", () => {
+                //     document.getElementById("nonselect_error").setAttribute("hidden");
+                //     document.getElementById("nonselect_error").hidden = true;
+                // });
                 
             </script>
         {% endif %}

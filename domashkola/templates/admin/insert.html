@@ -39,6 +39,17 @@
                     {{ form.submit(class="btn btn-sm btn-outline-primary w-100") }}
                 </div>
                 
+                <script type="text/javascript">
+                    //Обработка формы admin/update.html в части вывода ошибки, если не выбрана категория
+                    
+                    document.getElementById("submit").addEventListener("click", (e) => {                        
+                        if (document.getElementById("select_category").options.selectedIndex == 0){
+                            document.getElementById("nonselect_error").removeAttribute("hidden");
+                            e.preventDefault();
+                        }
+                    });
+                </script>
+
             </div>
                 
                 <div class="d-flex flex-column mb-3">
@@ -54,37 +65,52 @@
                     <div id="nonselect_error" class="p-1 mb-2 bg-danger text-white text-center rounded" hidden>Необходимо выбрать категорию!</div>
 
                     <!-- Заголовок карточки -->
-                    <div class="mb-3 ">
-                        <label for="input_header" class="form-label input-group-text mb-0" style="border-radius: 7px 7px 0 0; border-bottom-style: none;">{{ form.header.label() }}</label>
-                        {{ form.header(class="form-control mt-0", style="border-radius: 0 0 7px 7px;") }} 
+                    <div class="">{{ form.header.label() }}</div>
+                    <div class="form-floating mb-3 ">
+                        
+                        {{ form.header(class="form-control mt-0", placeholder="Текст карточки") }} 
+                        <label for="header" >Введите заголовок карточки</label>
                     </div>
+
                     <!-- Текст карточки -->
-                    <div class="mb-3 ">
-                        <label for="input_body" class="form-label input-group-text mb-0" style="border-radius: 7px 7px 0 0; border-bottom-style: none;">{{ form.body.label() }}</label>
-                        {{ form.body(class="form-control mt-0", style="border-radius: 0 0 7px 7px;") }}
+                    <div class="">{{ form.body.label() }}</div>
+                    <div class="form-floating mb-3 ">
+                        
+                        {{ form.body(class="form-control mt-0", placeholder="Текст карточки") }}
+                        <label for="body" class="" >Поле обязательно для заполнения!</label>
                         {% if form.body.errors %}
                             {% for error in form.body.errors %}
                                 <div class="p-1 mb-2 bg-danger text-white text-center rounded">[{{ error }}]</div>
                             {% endfor %}
-                        {% else %}
-                            <div id="input_keywords_help_block" class="form-text">
-                                Поле обязательно для заполнения!
-                            </div>
+                        
                         {% endif %}
                         
                     </div>
                     <!-- Ключевые слова -->
-                    <div class="mb-3 ">
-                        <label for="keywords" class="form-label input-group-text mb-0" style="border-radius: 7px 7px 0 0; border-bottom-style: none;">{{ form.keywords.label() }}</label>
-                        {{ form.keywords(class="form-control mt-0", style="border-radius: 0 0 7px 7px;") }}
-                        <div id="input_keywords_help_block" class="form-text">
-                            Ключевые слова нужно вводить через запятую!
-                        </div>
+                    <div class="">{{ form.keywords.label() }}</div>
+                    <div class="form-floating mb-3 ">
+                        
+                        {{ form.keywords(class="form-control mt-0", placeholder = 'Ключевые слова') }}   <!-- , style="border-radius: 0 0 7px 7px;" -->
+                        <label for="keywords" class="">Ключевые слова нужно вводить через запятую!</label>    <!--  class="form-label input-group-text mb-0" style="border-radius: 7px 7px 0 0; border-bottom-style: none;" -->
+                        <!-- <div id="input_keywords_help_block" class="form-text">
+                            
+                        </div> -->
                     </div>
                     <!-- Ссылка на исходный пост -->
-                    <div class="mb-3 ">
-                        <label for="link" class="form-label input-group-text mb-0" style="border-radius: 7px 7px 0 0; border-bottom-style: none;">{{ form.link.label() }}</label>
-                        {{ form.link(class="form-control mt-0", style="border-radius: 0 0 7px 7px;") }}
+
+                    <div class="">{{ form.link.label() }}</div>
+                    <div class="form-floating mb-3 ">           <!-- form-label input-group-text mb-0 -->
+                        
+                        {{ form.link(class="form-control mt-0", placeholder="Ссылка") }}
+                        <label for="link" class="" >{{ form.link.label() }}</label>
+
+                    <!-- <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <label for="floatingInput">Адрес электронной почты</label>
+                    </div> -->
+
+
+
                     </div>
                 </div>
                     

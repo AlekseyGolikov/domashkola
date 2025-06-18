@@ -62,7 +62,7 @@ def insert():
 
     if form.validate_on_submit():
         try:
-            logger.info("Ошибка {}".format(form.select_category.data))
+            # logger.info("Ошибка {}".format(form.select_category.data))
             c = db.session.get(Categories, form.select_category.data)
             p = Posts(category=c, category_name=c.category_name, link=form.link.data, body=form.body.data, header=form.header.data, keywords=form.keywords.data)
             db.session.add(p)
@@ -90,7 +90,7 @@ def update(post_id, back_link):
 
     if form.validate_on_submit():
         try:
-            logger.info("form.select_category.data {}".format(form.select_category.data))
+            # logger.info("form.select_category.data {}".format(form.select_category.data))
             p.category_id = category_names[form.select_category.data-1][0]
             p.category_name = category_names[form.select_category.data-1][1]
             p.header = form.header.data
@@ -100,12 +100,12 @@ def update(post_id, back_link):
             p.attached_files = form.attached_files.data
             db.session.add(p)
             db.session.commit()
-            logger.info("cat_id {}, cat_name {}, header {}, link {}, kw {}, body {}".format(p.category_id,
-                                                                                            p.category_name,
-                                                                                            p.header,
-                                                                                            p.link,
-                                                                                            p.keywords,
-                                                                                            p.body[:20]+'...'))
+            # logger.info("cat_id {}, cat_name {}, header {}, link {}, kw {}, body {}".format(p.category_id,
+            #                                                                                 p.category_name,
+            #                                                                                 p.header,
+            #                                                                                 p.link,
+            #                                                                                 p.keywords,
+            #                                                                                 p.body[:20]+'...'))
 
             flash("Карточка успешно обновлена в базе")
             return redirect(url_for('admin.index'))
